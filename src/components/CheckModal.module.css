@@ -1,0 +1,35 @@
+h2 {
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.totalAmount {
+  color: chocolate;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modalActions .textButton {
+  color: #1d1a16;
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.modalActions .textButton:hover,
+.modalActions .textButton:active {
+  color: #312c1d;
+}

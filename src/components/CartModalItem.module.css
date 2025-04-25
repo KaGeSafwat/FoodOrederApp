@@ -1,0 +1,39 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #0d0d0d;
+}
+.itemInfo {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.actions span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0d0d0d;
+}
+.orderedItem {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 10px;
+}
+.name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0d0d0d;
+}
+.quantity {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0d0d0d;
+}

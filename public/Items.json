@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Family Dish",
+    "price": "69.99",
+    "description": "Our largest portion of authentic Egyptian Koshary—a hearty mix of rice, lentils, macaroni, and chickpeas, topped with crispy fried onions and a spicy tomato-vinegar sauce. Feeds 4-5 people. A national treasure in a bowl!",
+    "image": "/images/plate1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Large Dish",
+    "price": "49.99",
+    "description": "Generous serving of Koshary: layers of rice, lentils, and pasta, crowned with golden fried onions, garlic vinegar, and a zesty tomato sauce. Perfect for 2-3 hungry food lovers.",
+    "image": "/images/plate2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Medium Dish",
+    "price": "35.00",
+    "description": "Classic Koshary—Egypt's beloved street food! A balanced blend of carbs and protein with lentils, rice, macaroni, and chickpeas, drizzled with garlic oil and spicy sauce. Ideal for one with leftovers.",
+    "image": "/images/plate3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Small Dish",
+    "price": "26.00",
+    "description": "A taste of Cairo in every bite! Our small Koshary packs all the essentials: rice, lentils, pasta, chickpeas, and fried onions, with a side of tangy tomato sauce. Single serving.",
+    "image": "/images/plate4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Spicy Chicken Pasta",
+    "price": "139.99",
+    "description": "Penne pasta tossed with tender chicken, roasted red peppers, and a spicy Arrabbiata sauce, finished with fresh basil and Parmesan.",
+    "image": "/images/plate5.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Pasta with Meatballs",
+    "price": "145.00",
+    "description": "Homemade beef meatballs simmered in marinara sauce, served over spaghetti and topped with melted mozzarella. Served with garlic bread.",
+    "image": "/images/plate6.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Thyme & Sesame Pasta",
+    "price": "80.00",
+    "description": "Artisan pasta with toasted sesame seeds, fresh thyme, garlic-infused olive oil, and a hint of lemon zest. Vegetarian-friendly.",
+    "image": "/images/plate7.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Spaghetti Bolognese",
+    "price": "179.99",
+    "description": "Slow-cooked beef ragù with tomatoes, carrots, and celery, served over al dente spaghetti. Garnished with fresh parsley.",
+    "image": "/images/plate8.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Laban Rice topped with Pistachios",
+    "price": "16.99",
+    "description": "Fragrant basmati rice cooked in creamy yogurt sauce, topped with crunchy pistachios and a drizzle of olive oil. A Middle Eastern specialty.",
+    "image": "/images/plate9.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Laban Rice topped with Nuts",
+    "price": "15.00",
+    "description": "Yogurt-infused rice with a medley of toasted almonds, cashews, and pine nuts. Light yet satisfying.",
+    "image": "/images/plate10.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Trileçe",
+    "price": "16.00",
+    "description": "Turkish milk cake soaked in three kinds of milk, topped with caramel glaze. Served chilled.",
+    "image": "/images/plate11.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Laban Rice topped with Cinnamon",
+    "price": "11.99",
+    "description": "Warm laban rice dusted with cinnamon and a touch of sugar. Comforting and aromatic.",
+    "image": "/images/plate12.jpg"
+  }
+]
