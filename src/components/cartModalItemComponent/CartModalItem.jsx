@@ -1,13 +1,14 @@
 import classes from './CartModalItem.module.css';
-import { currencyFormatter } from '../utility/formatter';
+import { currencyFormatter } from '../../utility/formatter';
 export default function CartModalItem({
   item,
   addItemHandler,
   removeItemHandler,
   ordered,
 }) {
+  // item in cart modal
   let content = (
-    <div className={classes.item}>
+    <li className={classes.item}>
       <div className={classes.itemInfo}>
         {`${item.name} - ${currencyFormatter.format(item.price)}`}
       </div>
@@ -20,17 +21,18 @@ export default function CartModalItem({
           <i className="fa-solid fa-minus"></i>
         </button>
       </div>
-    </div>
+    </li>
   );
 
+  // item in order modal
   if (ordered) {
     content = (
-      <div className={classes.item}>
+      <li className={classes.item}>
         <div className={classes.orderedItem}>
           <div className={classes.name}>{item.name}</div>
           <div className={classes.quantity}>{item.quantity}</div>
         </div>
-      </div>
+      </li>
     );
   }
 

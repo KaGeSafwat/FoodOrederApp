@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
+// send http request function
 async function sendHttpRequest(url, config) {
   const response = await fetch(url, config);
 
@@ -14,11 +15,13 @@ async function sendHttpRequest(url, config) {
   return resData;
 }
 
+// custom hook for fetching data
 export function useFetch(url, config, inputData) {
   const [items, setItems] = useState(inputData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // clear data function
   function clearData() {
     setItems(inputData);
   }

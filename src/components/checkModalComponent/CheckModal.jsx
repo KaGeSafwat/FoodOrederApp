@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import ShowModalContext from '../store/ShowModalContext';
-import Modal from '../UI/Modal';
-import { currencyFormatter } from '../utility/formatter';
-import CartContext from '../store/cartcontext';
-import Input from '../UI/Input';
-import Button from '../UI/Button';
+import ShowModalContext from '../../store/ShowModalContext';
+import Modal from '../../UI/modalUI/Modal';
+import { currencyFormatter } from '../../utility/formatter';
+import CartContext from '../../store/cartcontext';
+import Input from '../../UI/inputUI/Input';
+import Button from '../../UI/normalButtonUI/Button';
 import classes from './CheckModal.module.css';
-import OrderContext from '../store/ordercontext';
-import { useFetch } from '../hooks/useFetch';
+import OrderContext from '../../store/ordercontext';
+import { useFetch } from '../../hooks/useFetch';
 
 const config = {
   method: 'POST',

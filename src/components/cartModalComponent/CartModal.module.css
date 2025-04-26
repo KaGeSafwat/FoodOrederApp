@@ -1,3 +1,4 @@
+/* modal styles */
 .modal {
   max-width: 600px;
   width: 90%;
@@ -14,21 +15,6 @@
   transition: all 0.3s ease-out;
 }
 
-.modal.animate {
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -60%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
 .modalContent {
   padding: 2rem;
 }
@@ -40,6 +26,7 @@
   text-align: center;
 }
 
+/* cart content styles */
 .cartContent {
   list-style: none;
   padding: 0;
@@ -48,6 +35,7 @@
   overflow-y: auto;
 }
 
+/* empty cart styles */
 .emptyCart {
   text-align: center;
   padding: 2rem;
@@ -58,6 +46,7 @@
   margin-bottom: 1rem;
 }
 
+/* continue shopping button styles */
 .continueShopping {
   padding: 0.75rem 1.5rem;
   background-color: #4caf50;

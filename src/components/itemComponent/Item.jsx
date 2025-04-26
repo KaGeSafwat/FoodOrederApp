@@ -1,10 +1,12 @@
 import classes from './Item.module.css';
+import AddButton from '../../UI/addButtonUI/AddButton';
 import { useContext } from 'react';
-import CartContext from '../store/cartcontext.jsx';
-import { currencyFormatter } from '../utility/formatter';
+import CartContext from '../../store/cartcontext.jsx';
+import { currencyFormatter } from '../../utility/formatter';
 
 export default function Item({ item }) {
   const cartCtx = useContext(CartContext);
+
   return (
     <div className={classes.box}>
       <div className={classes.image}>
@@ -13,10 +15,10 @@ export default function Item({ item }) {
       <div className={classes.text}>
         <h3>{item.name}</h3>
         <p>{item.description}</p>
-        <p>{currencyFormatter.format(item.price)}</p>
+        <h4>{currencyFormatter.format(item.price)}</h4>
       </div>
       <div className={classes.info}>
-        <button onClick={() => cartCtx.addItem(item)}>Add to Cart</button>
+        <AddButton onClick={() => cartCtx.addItem(item)} />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+// reducer function for cartContext
 const cartReducer = (state, action) => {
   if (action.type === 'ADD_ITEM') {
     const existingCartItemIndex = state.items.findIndex(

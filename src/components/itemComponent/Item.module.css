@@ -33,16 +33,25 @@
 .box .text {
   padding: 20px;
   margin: 0;
+  text-align: center;
 }
 .box .text h3 {
   margin: 0;
   text-transform: capitalize;
+}
+.box .text h4 {
+  margin: 0;
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
 }
 .box .text p {
   color: #777;
   line-height: 1.5;
   margin-top: 10px;
 }
+
 .box .info {
   display: flex;
   justify-content: space-between;
@@ -50,22 +59,7 @@
   padding: 20px;
   border-top: 1px solid #e6e6e7;
 }
-.box:hover .info {
-  border-top: 1px solid #b36903d8;
-}
-.box .info button {
-  font-weight: bold;
-  color: white;
-  background-color: #b36903d8;
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
 
-@keyframes move-arrow {
-  100% {
-    transform: translateX(10px);
-  }
+.box:hover .info {
+  border-top: 1px solid #000f5bf8;
 }

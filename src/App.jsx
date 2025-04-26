@@ -1,8 +1,9 @@
-import Header from './components/Header';
-import Items from './components/Items';
-import CartModal from './components/CartModal';
-import CheckModal from './components/CheckModal';
-import OrderModal from './components/OrderModal';
+import Header from './components/headerComponent/Header';
+import Items from './components/itemsComponent/Items';
+import CartModal from './components/cartModalComponent/CartModal';
+import CheckModal from './components/checkModalComponent/CheckModal';
+import OrderModal from './components/orderModalComponent/OrderModal';
+
 function App() {
   return (
     <>
@@ -10,7 +11,9 @@ function App() {
       <OrderModal />
       <CheckModal />
       <CartModal />
-      <Items />
+      <main>
+        <Items />
+      </main>
     </>
   );
 }

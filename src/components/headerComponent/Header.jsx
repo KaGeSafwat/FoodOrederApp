@@ -1,12 +1,14 @@
-import logo from '../assets/Logo.png';
+import logo from '../../assets/Logo.png';
 import classes from './Header.module.css';
 import { useContext } from 'react';
-import CartContext from '../store/cartcontext.jsx';
-import ShowModalContext from '../store/ShowModalContext.jsx';
+import CartContext from '../../store/cartcontext.jsx';
+import ShowModalContext from '../../store/ShowModalContext.jsx';
 
 export default function Header() {
   const cartCtx = useContext(CartContext);
   const showModalCtx = useContext(ShowModalContext);
+
+  // total quantity of items in cart
   const totalQuantity = cartCtx.items.reduce((currentNumber, item) => {
     return currentNumber + item.quantity;
   }, 0);

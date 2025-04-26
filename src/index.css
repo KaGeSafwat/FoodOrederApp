@@ -13,24 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -53,10 +39,80 @@ button:hover {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
+
   button {
     background-color: #f9f9f9;
   }
+}
+
+.main-heading {
+  text-transform: uppercase;
+  width: fit-content;
+  margin: 0 auto 80px;
+  padding: 10px 20px;
+  border: 2px solid black;
+  font-size: 30px;
+  position: relative;
+  transition: 0.3s;
+}
+.main-heading::before,
+.main-heading::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #022846;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.main-heading::after {
+  right: -30px;
+}
+.main-heading::before {
+  left: -30px;
+}
+.main-heading:hover {
+  color: white;
+  border: 2px solid white;
+  transition-delay: 0.5s;
+}
+.main-heading:hover::after {
+  animation: move-left 0.5s linear forwards;
+  z-index: -1;
+}
+.main-heading:hover::before {
+  animation: move-right 0.5s linear forwards;
+  z-index: -1;
+}
+
+@keyframes move-left {
+  50% {
+    right: 0;
+    width: 12px;
+    height: 12px;
+  }
+  100% {
+    right: 0;
+    width: 51%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+@keyframes move-right {
+  50% {
+    left: 0;
+    width: 12px;
+    height: 12px;
+  }
+  100% {
+    left: 0;
+    width: 51%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+main {
+  margin-top: 50px;
 }
