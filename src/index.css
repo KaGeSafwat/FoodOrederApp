@@ -1,11 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,106 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
-  width: 100%;
-  min-height: 100vh;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full;
   }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-.main-heading {
-  text-transform: uppercase;
-  width: fit-content;
-  margin: 0 auto 80px;
-  padding: 10px 20px;
-  border: 2px solid black;
-  font-size: 30px;
-  position: relative;
-  transition: 0.3s;
-}
-.main-heading::before,
-.main-heading::after {
-  content: '';
-  width: 12px;
-  height: 12px;
-  position: absolute;
-  border-radius: 50%;
-  background-color: #022846;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.main-heading::after {
-  right: -30px;
-}
-.main-heading::before {
-  left: -30px;
-}
-.main-heading:hover {
-  color: white;
-  border: 2px solid white;
-  transition-delay: 0.5s;
-}
-.main-heading:hover::after {
-  animation: move-left 0.5s linear forwards;
-  z-index: -1;
-}
-.main-heading:hover::before {
-  animation: move-right 0.5s linear forwards;
-  z-index: -1;
-}
-
-@keyframes move-left {
-  50% {
-    right: 0;
-    width: 12px;
-    height: 12px;
-  }
-  100% {
-    right: 0;
-    width: 51%;
-    height: 100%;
-    border-radius: 0;
-  }
-}
-@keyframes move-right {
-  50% {
-    left: 0;
-    width: 12px;
-    height: 12px;
-  }
-  100% {
-    left: 0;
-    width: 51%;
-    height: 100%;
-    border-radius: 0;
-  }
-}
-
-main {
-  margin-top: 50px;
 }
