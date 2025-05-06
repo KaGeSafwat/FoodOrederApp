@@ -6,6 +6,7 @@ import { createPost } from "../utils/fetch.js";
 import { useMutation } from "@tanstack/react-query";
 import PostForm from "../components/postFormComponents/FormPost.jsx";
 import { queryClient } from "../utils/fetch.js";
+import { toast } from "react-toastify";
 
 export default function NewPost() {
   const navigate = useNavigate();
@@ -51,6 +52,12 @@ export default function NewPost() {
       // Revert to previous state if mutation fails
       queryClient.setQueryData(["posts"], context?.previousPosts);
       setFormError(`Error creating post: ${err.message}`);
+
+      // Show error toast
+      toast.error(`Failed to create post: ${err.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     },
     onSuccess: () => {
       // Invalidate and refetch
@@ -59,6 +66,12 @@ export default function NewPost() {
       // Clear image preview
       dispatch(newPostActions.setImagePreview(null));
       dispatch(newPostActions.setIsImageUrl(false));
+
+      // Show success toast
+      toast.success("Post created successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
 
       // Navigate to posts page
       navigate("/dashboard/posts");

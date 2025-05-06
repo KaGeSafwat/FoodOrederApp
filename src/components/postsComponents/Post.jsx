@@ -15,6 +15,7 @@ import {
   toTitleCase,
 } from "../../utils/format";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Post({ post }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -26,16 +27,41 @@ export default function Post({ post }) {
       await queryClient.cancelQueries({ queryKey: ["posts"] });
       const previousPosts = queryClient.getQueryData(["posts"]);
 
-      queryClient.setQueryData(["posts"], postId);
+      // Optimistically update the UI by removing the post
+      queryClient.setQueryData(["posts"], (old) => {
+        if (!old) return old;
+
+        return {
+          ...old,
+          posts: old.posts.filter((p) => p.id !== postId),
+          totalPosts: old.totalPosts - 1,
+          totalPages: Math.max(1, Math.ceil((old.totalPosts - 1) / 4)),
+        };
+      });
 
       return { previousPosts };
     },
-    onError: (context) => {
-      queryClient.setQueryData(["posts"], context.previousPosts);
+    onError: (err, _, context) => {
+      // Revert to previous state if mutation fails
+      queryClient.setQueryData(["posts"], context?.previousPosts);
       setIsDeleting(false);
+
+      // Show error toast
+      toast.error(`Failed to delete post: ${err.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     },
-    onSettled: () => {
-      queryClient.invalidateQueries(["posts"]);
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      setIsDeleting(false);
+
+      // Show success toast
+      toast.success("Post deleted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     },
   });
 
@@ -46,7 +72,7 @@ export default function Post({ post }) {
     if (window.confirm("Are you sure you want to delete this post?")) {
       setIsDeleting(true);
       deletePostMutation.mutate(post.id);
-      setIsDeleting(false);
+      // isDeleting will be set to false in onSuccess or onError callbacks
     }
   };
 

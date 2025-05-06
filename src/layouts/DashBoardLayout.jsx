@@ -21,7 +21,6 @@ export default function DashBoardLayout() {
     }
 
     const tokenDuration = getTokenDuration();
-    console.log(tokenDuration);
 
     // Only set up auto-logout if token duration is valid
     setTimeout(() => {

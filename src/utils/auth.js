@@ -69,5 +69,5 @@ export function getTokenDuration() {
 export function logout() {
   localStorage.removeItem("user");
   localStorage.removeItem("expiration");
-  return redirect("/");
+  return redirect("/home");
 }

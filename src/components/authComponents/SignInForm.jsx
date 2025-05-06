@@ -1,18 +1,56 @@
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useSearchParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { signIn, signUp } from "../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/slices/authSlice";
 import Input from "../../UI/Input";
+import { useEffect, useRef } from "react";
 
 const SignInForm = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { error, isLoading } = useSelector((state) => state.auth);
+  const formRef = useRef(null);
+
   let isLogin = false;
   if (searchParams.get("mode")) {
     isLogin = searchParams.get("mode") === "login";
   }
+
+  // Store the current mode to detect changes
+  const prevModeRef = useRef(isLogin);
+
+  // Clear form and error when component mounts, unmounts, or mode changes
+  useEffect(() => {
+    // Clear error when component mounts
+    dispatch(authActions.clearError());
+
+    // Check if mode has changed (switching between login and signup)
+    if (prevModeRef.current !== isLogin) {
+      // Mode has changed, reset form and clear error
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+      dispatch(authActions.clearError());
+
+      // Update the previous mode reference
+      prevModeRef.current = isLogin;
+    }
+
+    // Return cleanup function to run when component unmounts
+    return () => {
+      dispatch(authActions.clearError());
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    };
+  }, [isLogin, dispatch, location.pathname]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,7 +106,7 @@ const SignInForm = () => {
             {error}
           </div>
         )}
-        <form onSubmit={handleSubmit} className="flex flex-col">
+        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col">
           {!isLogin && (
             <Input
               id="username"

@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import PostForm from "../components/postFormComponents/FormPost";
 import { getPostById, queryClient, updatePost } from "../utils/fetch";
 import { newPostActions } from "../store/slices/newPostSlice";
+import { toast } from "react-toastify";
 
 export default function EditPost() {
   const { postId } = useParams();
@@ -63,6 +64,12 @@ export default function EditPost() {
         queryClient.setQueryData(["posts"], context.previousPosts);
       }
       dispatch(newPostActions.setError(`Error updating post: ${err.message}`));
+
+      // Show error toast
+      toast.error(`Failed to update post: ${err.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     },
     onSuccess: () => {
       // Invalidate and refetch
@@ -72,6 +79,12 @@ export default function EditPost() {
       // Clear image preview
       dispatch(newPostActions.setImagePreview(null));
       dispatch(newPostActions.setIsImageUrl(false));
+
+      // Show success toast
+      toast.success("Post updated successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
 
       // Navigate to posts page
       navigate("/dashboard/posts");

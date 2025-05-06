@@ -18,6 +18,7 @@ export default function PostForm({
     return () => {
       dispatch(newPostActions.setImagePreview(null));
       dispatch(newPostActions.setIsImageUrl(false));
+      dispatch(newPostActions.setImageUrl(""));
     };
   }, [dispatch]);
 
