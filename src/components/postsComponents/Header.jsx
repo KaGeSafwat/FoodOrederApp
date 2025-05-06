@@ -10,7 +10,7 @@ export default function Header() {
     <div className="flex justify-between items-center mb-6">
       <h2 className="text-2xl font-semibold text-blue-900 dark:text-white flex items-center gap-2">
         <HiOutlineCalendar className="inline-block text-blue-900 dark:text-blue-400" />
-        Posts/Articles
+        Posts
       </h2>
 
       <button
