@@ -1,29 +1,33 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { newPostActions } from "../../store/slices/newPostSlice";
-import ImageUpload from "./ImageUpload";
-import Input from "../../UI/Input";
-import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { newPostActions } from '../../store/slices/newPostSlice.ts';
+import ImageUpload from './ImageUpload';
+import Input from '../../UI/Input';
+import { useEffect, type FormEvent } from 'react';
+import { useAppDispatch } from '../../store/hooks.ts';
 
 export default function PostForm({
   handleSubmit,
   post = {},
   isSubmitting = false,
+}: {
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  post?: { title?: string; content?: string; image?: string };
+  isSubmitting?: boolean;
 }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // Clear image preview when component unmounts
     return () => {
       dispatch(newPostActions.setImagePreview(null));
       dispatch(newPostActions.setIsImageUrl(false));
-      dispatch(newPostActions.setImageUrl(""));
+      dispatch(newPostActions.setImageUrl(''));
     };
   }, [dispatch]);
 
   const handleCancel = () => {
-    navigate("/dashboard/posts");
+    navigate('/dashboard/posts');
   };
 
   return (
@@ -31,13 +35,14 @@ export default function PostForm({
       {/* Title Input */}
       <div>
         <Input
+          isTextArea={false}
           isLabel
           id="title"
           placeholder="Enter post title"
           type="text"
           name="title"
           required
-          defaultValue={post.title || ""}
+          defaultValue={post.title || ''}
           className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
         />
       </div>
@@ -50,8 +55,8 @@ export default function PostForm({
           isTextArea
           name="content"
           required
-          rows="6"
-          defaultValue={post.content || ""}
+          rows={6}
+          defaultValue={post.content || ''}
           placeholder="Write your post content here..."
           className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors resize-none"
         />
@@ -74,7 +79,11 @@ export default function PostForm({
           disabled={isSubmitting}
           className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "Saving..." : post.id ? "Update Post" : "Create Post"}
+          {isSubmitting
+            ? 'Saving...'
+            : post.title
+            ? 'Update Post'
+            : 'Create Post'}
         </button>
       </div>
     </form>

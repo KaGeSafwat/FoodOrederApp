@@ -1,13 +1,13 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import LeftNav from "../components/layoutComponents/LeftNav";
-import RightNav from "../components/layoutComponents/RightNav";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getTokenDuration } from "../utils/auth";
+import { Outlet, useNavigate } from 'react-router-dom';
+import LeftNav from '../components/layoutComponents/LeftNav';
+import RightNav from '../components/layoutComponents/RightNav';
+import { useEffect } from 'react';
+import { getTokenDuration } from '../utils/auth';
+import { useAppSelector } from '../store/hooks.ts';
 
 export default function DashBoardLayout() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const { isDarkMode } = useSelector((state) => state.rightNav);
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const { isDarkMode } = useAppSelector((state) => state.rightNav);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function DashBoardLayout() {
       return;
     }
 
-    if (user === "EXPIRED") {
-      navigate("/logout");
+    if (user === 'EXPIRED') {
+      navigate('/logout');
       return;
     }
 
@@ -24,12 +24,12 @@ export default function DashBoardLayout() {
 
     // Only set up auto-logout if token duration is valid
     setTimeout(() => {
-      navigate("/logout");
+      navigate('/logout');
     }, tokenDuration);
   }, [user, navigate]);
 
   return (
-    <div className={`flex flex-col min-h-screen ${isDarkMode ? "dark" : ""}`}>
+    <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark' : ''}`}>
       {/* Navbar */}
       <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 w-full z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

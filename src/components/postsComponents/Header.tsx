@@ -1,10 +1,10 @@
-import { HiOutlineCalendar, HiOutlinePlus } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { HiOutlineCalendar, HiOutlinePlus } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const navigate = useNavigate();
   const handleCreatePost = () => {
-    navigate("/dashboard/new-post");
+    navigate('/dashboard/new-post');
   };
   return (
     <div className="flex justify-between items-center mb-6">

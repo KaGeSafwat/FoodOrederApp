@@ -3,37 +3,46 @@ import {
   HiOutlinePencil,
   HiOutlineTrash,
   HiOutlineClock,
-} from "react-icons/hi";
-import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../../utils/fetch";
-import { deletePost } from "../../utils/fetch";
+} from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { queryClient, deletePost } from '../../utils/fetch.ts';
+import type { Post, PostsData } from '../../utils/fetch.ts';
 import {
   formatDate,
   formatRelativeTime,
   truncateText,
   toTitleCase,
-} from "../../utils/format";
-import { useState } from "react";
-import { toast } from "react-toastify";
+} from '../../utils/format.ts';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { type MouseEvent, type SyntheticEvent } from 'react';
 
-export default function Post({ post }) {
+interface PostProps {
+  post: Post;
+}
+
+export default function Post({ post }: PostProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Consolidated mutation with optimistic updates
-  const deletePostMutation = useMutation({
+  const deletePostMutation = useMutation<
+    { success: boolean; id: string },
+    Error,
+    string
+  >({
     mutationFn: deletePost,
     onMutate: async (postId) => {
-      await queryClient.cancelQueries({ queryKey: ["posts"] });
-      const previousPosts = queryClient.getQueryData(["posts"]);
+      await queryClient.cancelQueries({ queryKey: ['posts'] });
+      const previousPosts = queryClient.getQueryData<PostsData>(['posts']);
 
       // Optimistically update the UI by removing the post
-      queryClient.setQueryData(["posts"], (old) => {
+      queryClient.setQueryData<PostsData>(['posts'], (old) => {
         if (!old) return old;
 
         return {
           ...old,
-          posts: old.posts.filter((p) => p.id !== postId),
+          posts: old.posts.filter((p: Post) => p.id !== postId),
           totalPosts: old.totalPosts - 1,
           totalPages: Math.max(1, Math.ceil((old.totalPosts - 1) / 4)),
         };
@@ -41,35 +50,38 @@ export default function Post({ post }) {
 
       return { previousPosts };
     },
-    onError: (err, _, context) => {
+    onError: (err: Error, context: unknown) => {
       // Revert to previous state if mutation fails
-      queryClient.setQueryData(["posts"], context?.previousPosts);
+      const typedContext = context as { previousPosts?: PostsData };
+      if (typedContext && typedContext.previousPosts) {
+        queryClient.setQueryData(['posts'], typedContext.previousPosts);
+      }
       setIsDeleting(false);
 
       // Show error toast
       toast.error(`Failed to delete post: ${err.message}`, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 3000,
       });
     },
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
       setIsDeleting(false);
 
       // Show success toast
-      toast.success("Post deleted successfully!", {
-        position: "top-right",
+      toast.success('Post deleted successfully!', {
+        position: 'top-right',
         autoClose: 3000,
       });
     },
   });
 
-  const handleDelete = (e) => {
+  const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (window.confirm("Are you sure you want to delete this post?")) {
+    if (window.confirm('Are you sure you want to delete this post?')) {
       setIsDeleting(true);
       deletePostMutation.mutate(post.id);
       // isDeleting will be set to false in onSuccess or onError callbacks
@@ -82,13 +94,13 @@ export default function Post({ post }) {
       <div className="relative w-full h-48 overflow-hidden group">
         <img
           src={
-            post.image || "https://via.placeholder.com/800x400?text=No+Image"
+            post.image || 'https://via.placeholder.com/800x400?text=No+Image'
           }
           alt={post.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          onError={(e) => {
-            e.target.src =
-              "https://via.placeholder.com/800x400?text=Image+Error";
+          onError={(e: SyntheticEvent<HTMLImageElement>) => {
+            const target = e.target as HTMLImageElement;
+            target.src = 'https://via.placeholder.com/800x400?text=Image+Error';
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
@@ -109,7 +121,7 @@ export default function Post({ post }) {
 
         {/* Title */}
         <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-2 line-clamp-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-          {toTitleCase(post.title) || "Untitled Post"}
+          {toTitleCase(post.title) || 'Untitled Post'}
         </h3>
 
         {/* Content preview */}
@@ -131,7 +143,7 @@ export default function Post({ post }) {
               onClick={handleDelete}
               disabled={isDeleting}
               className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-full transition-colors"
-              title={isDeleting ? "Deleting..." : "Delete post"}
+              title={isDeleting ? 'Deleting...' : 'Delete post'}
             >
               <HiOutlineTrash className="w-5 h-5" />
             </button>

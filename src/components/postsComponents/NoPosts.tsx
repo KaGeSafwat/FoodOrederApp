@@ -2,11 +2,18 @@ import {
   HiOutlinePhotograph,
   HiOutlinePencilAlt,
   HiOutlineDocumentAdd,
-} from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+} from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 export default function NoPosts() {
   const navigate = useNavigate();
+  const handleCreatePost = () => {
+    navigate('/dashboard/new-post');
+  };
+  const handleGoToDashboard = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="col-span-3 text-center py-12">
       <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-2xl p-8 border border-gray-200 dark:border-gray-700">
@@ -25,7 +32,7 @@ export default function NoPosts() {
 
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xs">
             <button
-              onClick={() => navigate("/dashboard/new-post")}
+              onClick={handleCreatePost}
               className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg w-full"
             >
               <HiOutlineDocumentAdd className="h-5 w-5" />
@@ -33,7 +40,7 @@ export default function NoPosts() {
             </button>
 
             <button
-              onClick={() => navigate("/dashboard")}
+              onClick={handleGoToDashboard}
               className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all border border-gray-200 dark:border-gray-600 w-full"
             >
               <HiOutlinePencilAlt className="h-5 w-5" />

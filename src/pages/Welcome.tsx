@@ -1,7 +1,7 @@
-import WelcomeNav from "../components/welcomPageComponents/WelcomeNav";
-import Feature from "../components/welcomPageComponents/Feature";
-import Hero from "../components/welcomPageComponents/Hero";
-import CTA from "../components/welcomPageComponents/CTA";
+import WelcomeNav from '../components/welcomPageComponents/WelcomeNav.tsx';
+import Feature from '../components/welcomPageComponents/Feature.tsx';
+import Hero from '../components/welcomPageComponents/Hero.tsx';
+import CTA from '../components/welcomPageComponents/CTA.tsx';
 
 export default function Welcome() {
   return (

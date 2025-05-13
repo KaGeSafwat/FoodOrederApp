@@ -1,12 +1,12 @@
-import { redirect } from "react-router-dom";
+import { redirect } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../firebase";
+} from 'firebase/auth';
+import { auth } from '../firebase.ts';
 
 // Sign up function using Firebase
-export const signUp = async (email, password) => {
+export const signUp = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -15,12 +15,14 @@ export const signUp = async (email, password) => {
     );
     return { user: userCredential.user, error: null };
   } catch (error) {
-    return { user: null, error: error.message };
+    if (error instanceof Error) {
+      return { user: null, error: error.message };
+    }
   }
 };
 
 // Sign in function with email and password using Firebase
-export const signIn = async (email, password) => {
+export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -30,19 +32,21 @@ export const signIn = async (email, password) => {
 
     return { user: userCredential.user, error: null };
   } catch (error) {
-    return { user: null, error: error.message };
+    if (error instanceof Error) {
+      return { user: null, error: error.message };
+    }
   }
 };
 
 export function getAuthUser() {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem('user');
   if (!user) {
     return null;
   }
 
   const expiration = getTokenDuration();
   if (expiration < 0) {
-    return "expired";
+    return 'expired';
   }
 
   return JSON.parse(user);
@@ -52,22 +56,24 @@ export function isAuthenticated() {
   const user = getAuthUser();
 
   if (!user) {
-    return redirect("/auth?mode=login");
+    return redirect('/auth?mode=login');
   }
 
   return null;
 }
 
 export function getTokenDuration() {
-  const storedExpirationDate = localStorage.getItem("expiration");
-  const expirationDate = new Date(storedExpirationDate);
+  const storedExpirationDate = localStorage.getItem('expiration');
+  const expirationDate = storedExpirationDate
+    ? new Date(storedExpirationDate)
+    : new Date();
   const now = new Date();
   const duration = expirationDate.getTime() - now.getTime();
   return duration;
 }
 
 export function logout() {
-  localStorage.removeItem("user");
-  localStorage.removeItem("expiration");
-  return redirect("/home");
+  localStorage.removeItem('user');
+  localStorage.removeItem('expiration');
+  return redirect('/home');
 }

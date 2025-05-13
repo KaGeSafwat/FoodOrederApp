@@ -1,14 +1,22 @@
+import type { ComponentPropsWithoutRef, ReactElement } from 'react';
+
+type InputProps = ComponentPropsWithoutRef<'input'> &
+  ComponentPropsWithoutRef<'textarea'> & {
+    isLabel?: boolean;
+    isTextArea?: boolean;
+  };
+
 export default function Input({
   placeholder,
   id,
   isLabel,
   isTextArea,
   ...Props
-}) {
-  let cssClass =
-    "bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
+}: InputProps): ReactElement {
+  let cssClass: string =
+    'bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150';
   if (isLabel) {
-    cssClass = Props.className;
+    cssClass = Props.className || cssClass;
   }
   return (
     <>

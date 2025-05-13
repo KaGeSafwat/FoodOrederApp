@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { getPosts } from "../utils/fetch";
-import Pagination from "../components/postsComponents/Pagination";
-import NoPosts from "../components/postsComponents/NoPosts";
-import Loading from "../components/Loading";
-import Post from "../components/postsComponents/Post";
-import Header from "../components/postsComponents/Header";
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { getPosts } from '../utils/fetch.ts';
+import Pagination from '../components/postsComponents/Pagination.tsx';
+import NoPosts from '../components/postsComponents/NoPosts.tsx';
+import Loading from '../components/Loading.tsx';
+import Post from '../components/postsComponents/Post.tsx';
+import Header from '../components/postsComponents/Header.tsx';
 
 export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +22,7 @@ export default function Posts() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["posts", currentPage],
+    queryKey: ['posts', currentPage],
     queryFn: () => getPosts({ page: currentPage, limit: 4 }),
     staleTime: 60000, // 1 minute
     retry: 2,
@@ -30,7 +30,7 @@ export default function Posts() {
     refetchOnWindowFocus: false,
   });
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo(0, 0); // Scroll to top when changing pages
   };
@@ -51,9 +51,9 @@ export default function Posts() {
         {error && (
           <div className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-lg mb-4">
             <p className="font-medium">Error:</p>
-            <p>{error}</p>
+            <p>{error.message}</p>
             <button
-              onClick={refetch}
+              onClick={() => refetch}
               className="mt-2 text-red-700 dark:text-red-400 underline hover:no-underline"
             >
               Try again
@@ -78,12 +78,12 @@ export default function Posts() {
             {/* Post count and pagination */}
             <div className="flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-4">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 sm:mb-0">
-                Showing{" "}
+                Showing{' '}
                 <span className="font-medium">
                   {postsData.posts?.length || 0}
-                </span>{" "}
-                of{" "}
-                <span className="font-medium">{postsData.totalPosts || 0}</span>{" "}
+                </span>{' '}
+                of{' '}
+                <span className="font-medium">{postsData.totalPosts || 0}</span>{' '}
                 posts
               </p>
 

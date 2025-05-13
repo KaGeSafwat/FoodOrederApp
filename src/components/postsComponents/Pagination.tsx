@@ -3,12 +3,18 @@ import {
   HiChevronRight,
   HiOutlineChevronDoubleLeft,
   HiOutlineChevronDoubleRight,
-} from "react-icons/hi";
+} from 'react-icons/hi';
+
+type PageChange = (page: number) => void;
 
 export default function Pagination({
   currentPage = 1,
   totalPages = 1,
   onPageChange,
+}: {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: PageChange;
 }) {
   // Generate page numbers to display
   const getPageNumbers = () => {
@@ -18,12 +24,12 @@ export default function Pagination({
     pageNumbers.push(1);
 
     // Calculate range around current page
-    let startPage = Math.max(2, currentPage - 1);
-    let endPage = Math.min(totalPages - 1, currentPage + 1);
+    const startPage: number = Math.max(2, currentPage - 1);
+    const endPage = Math.min(totalPages - 1, currentPage + 1);
 
     // Add ellipsis after page 1 if needed
     if (startPage > 2) {
-      pageNumbers.push("...");
+      pageNumbers.push('...');
     }
 
     // Add pages in the middle
@@ -33,7 +39,7 @@ export default function Pagination({
 
     // Add ellipsis before last page if needed
     if (endPage < totalPages - 1) {
-      pageNumbers.push("...");
+      pageNumbers.push('...');
     }
 
     // Always show last page if there's more than one page
@@ -56,8 +62,8 @@ export default function Pagination({
             disabled={currentPage === 1}
             className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight rounded-l-lg border border-gray-300 dark:border-gray-600 ${
               currentPage === 1
-                ? "text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800"
-                : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800'
+                : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
             aria-label="Go to first page"
           >
@@ -72,8 +78,8 @@ export default function Pagination({
             disabled={currentPage === 1}
             className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 dark:border-gray-600 ${
               currentPage === 1
-                ? "text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800"
-                : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800'
+                : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
             aria-label="Go to previous page"
           >
@@ -83,7 +89,7 @@ export default function Pagination({
 
         {/* Page numbers */}
         {pageNumbers.map((page, index) =>
-          page === "..." ? (
+          page === '...' ? (
             <li key={`ellipsis-${index}`}>
               <span className="flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
                 ...
@@ -92,12 +98,12 @@ export default function Pagination({
           ) : (
             <li key={`page-${page}`}>
               <button
-                onClick={() => onPageChange(page)}
-                aria-current={currentPage === page ? "page" : undefined}
+                onClick={() => onPageChange(page as number)}
+                aria-current={currentPage === page ? 'page' : undefined}
                 className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 dark:border-gray-600 ${
                   currentPage === page
-                    ? "text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 border-blue-600 dark:border-blue-500 z-10"
-                    : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? 'text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 border-blue-600 dark:border-blue-500 z-10'
+                    : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }`}
               >
                 {page}
@@ -115,8 +121,8 @@ export default function Pagination({
             disabled={currentPage === totalPages}
             className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 dark:border-gray-600 ${
               currentPage === totalPages
-                ? "text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800"
-                : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800'
+                : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
             aria-label="Go to next page"
           >
@@ -131,8 +137,8 @@ export default function Pagination({
             disabled={currentPage === totalPages}
             className={`flex items-center justify-center px-3 h-8 me-0 leading-tight rounded-r-lg border border-gray-300 dark:border-gray-600 ${
               currentPage === totalPages
-                ? "text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800"
-                : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed bg-gray-100 dark:bg-gray-800'
+                : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
             aria-label="Go to last page"
           >

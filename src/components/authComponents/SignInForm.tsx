@@ -3,39 +3,40 @@ import {
   useSearchParams,
   useNavigate,
   useLocation,
-} from "react-router-dom";
-import { signIn, signUp } from "../../utils/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/slices/authSlice";
-import Input from "../../UI/Input";
-import { useEffect, useRef } from "react";
+} from 'react-router-dom';
+import { signIn, signUp } from '../../utils/auth.ts';
+import { authActions } from '../../store/slices/authSlice.ts';
+import Input from '../../UI/Input';
+import { useEffect, useRef, type FormEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 
 const SignInForm = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
-  const { error, isLoading } = useSelector((state) => state.auth);
-  const formRef = useRef(null);
+  const dispatch = useAppDispatch();
+  const { error, isLoading } = useAppSelector((state) => state.auth);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   let isLogin = false;
-  if (searchParams.get("mode")) {
-    isLogin = searchParams.get("mode") === "login";
+  if (searchParams.get('mode')) {
+    isLogin = searchParams.get('mode') === 'login';
   }
 
   // Store the current mode to detect changes
-  const prevModeRef = useRef(isLogin);
+  const prevModeRef = useRef<boolean>(isLogin);
 
   // Clear form and error when component mounts, unmounts, or mode changes
   useEffect(() => {
     // Clear error when component mounts
     dispatch(authActions.clearError());
+    const form = formRef.current;
 
     // Check if mode has changed (switching between login and signup)
     if (prevModeRef.current !== isLogin) {
       // Mode has changed, reset form and clear error
-      if (formRef.current) {
-        formRef.current.reset();
+      if (form) {
+        form.reset();
       }
       dispatch(authActions.clearError());
 
@@ -46,23 +47,26 @@ const SignInForm = () => {
     // Return cleanup function to run when component unmounts
     return () => {
       dispatch(authActions.clearError());
-      if (formRef.current) {
-        formRef.current.reset();
+      if (form) {
+        form.reset();
       }
     };
   }, [isLogin, dispatch, location.pathname]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(authActions.setError(""));
+    dispatch(authActions.setError(''));
     dispatch(authActions.setIsLoading(true));
 
-    const data = new FormData(event.target);
+    const data = new FormData(event.currentTarget);
     const authData = Object.fromEntries(data);
 
-    const { user, error: authError } = isLogin
-      ? await signIn(authData.email, authData.password)
-      : await signUp(authData.email, authData.password);
+    const result = isLogin
+      ? await signIn(authData.email as string, authData.password as string)
+      : await signUp(authData.email as string, authData.password as string);
+
+    const user = result?.user || null;
+    const authError = result?.error || null;
 
     if (authError) {
       dispatch(authActions.setError(authError));
@@ -72,7 +76,7 @@ const SignInForm = () => {
 
     if (user) {
       localStorage.setItem(
-        "user",
+        'user',
         JSON.stringify({
           email: user.email,
           uid: user.uid,
@@ -80,10 +84,10 @@ const SignInForm = () => {
       );
       const expiration = new Date();
       expiration.setHours(expiration.getHours() + 1);
-      localStorage.setItem("expiration", expiration.toISOString());
+      localStorage.setItem('expiration', expiration.toISOString());
       dispatch(authActions.setIsLoading(false));
-      dispatch(authActions.setError(""));
-      navigate("/dashboard");
+      dispatch(authActions.setError(''));
+      navigate('/dashboard');
     }
   };
 
@@ -92,7 +96,7 @@ const SignInForm = () => {
       <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-200">
-            {isLogin ? "Login" : "Create an account"}
+            {isLogin ? 'Login' : 'Create an account'}
           </h2>
           <Link
             to="/home"
@@ -109,6 +113,8 @@ const SignInForm = () => {
         <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col">
           {!isLogin && (
             <Input
+              isTextArea={false}
+              isLabel={false}
               id="username"
               name="username"
               placeholder="Username"
@@ -117,6 +123,8 @@ const SignInForm = () => {
             />
           )}
           <Input
+            isTextArea={false}
+            isLabel={false}
             id="email"
             name="email"
             placeholder="Email address"
@@ -124,23 +132,25 @@ const SignInForm = () => {
             required
           />
           <Input
+            isTextArea={false}
+            isLabel={false}
             id="password"
             name="password"
             placeholder="Password"
             type="password"
             required
-            minLength="6"
+            minLength={6}
           />
           <div className="flex items-center justify-between flex-wrap">
             <p className="text-white mt-4">
               {isLogin
                 ? "Don't have an account? "
-                : "Already have an account? "}
+                : 'Already have an account? '}
               <Link
-                to={`/auth?mode=${isLogin ? "signup" : "login"}`}
+                to={`/auth?mode=${isLogin ? 'signup' : 'login'}`}
                 className="text-sm text-blue-500 hover:underline mt-4"
               >
-                {isLogin ? "Signup" : "Login"}
+                {isLogin ? 'Signup' : 'Login'}
               </Link>
             </p>
           </div>
@@ -149,7 +159,7 @@ const SignInForm = () => {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? "Loading..." : isLogin ? "Login" : "Signup"}
+            {isLoading ? 'Loading...' : isLogin ? 'Login' : 'Signup'}
           </button>
         </form>
       </div>

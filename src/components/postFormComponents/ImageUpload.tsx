@@ -1,11 +1,15 @@
-import { useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { newPostActions } from "../../store/slices/newPostSlice";
+import { type FormEvent, type ChangeEvent, useRef, useEffect } from 'react';
+import { newPostActions } from '../../store/slices/newPostSlice.ts';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 
-export default function ImageUpload({ initialImage }) {
-  const fileInputRef = useRef(null);
-  const dispatch = useDispatch();
-  const { imagePreview, error, imageUrl } = useSelector(
+export default function ImageUpload({
+  initialImage,
+}: {
+  initialImage?: string;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const { imagePreview, error, imageUrl } = useAppSelector(
     (state) => state.newPost
   );
 
@@ -14,7 +18,7 @@ export default function ImageUpload({ initialImage }) {
     if (initialImage) {
       dispatch(newPostActions.setImagePreview(initialImage));
 
-      if (initialImage.startsWith("http")) {
+      if (initialImage.startsWith('http')) {
         dispatch(newPostActions.setIsImageUrl(true));
         dispatch(newPostActions.setImageUrl(initialImage));
       }
@@ -22,14 +26,14 @@ export default function ImageUpload({ initialImage }) {
   }, [initialImage, dispatch]);
 
   // Handle file upload
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(newPostActions.setError(null));
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith("image/")) {
-      dispatch(newPostActions.setError("Please select an image file"));
+    if (!file.type.startsWith('image/')) {
+      dispatch(newPostActions.setError('Please select an image file'));
       return;
     }
 
@@ -43,23 +47,25 @@ export default function ImageUpload({ initialImage }) {
   };
 
   // Handle URL input change
-  const handleUrlChange = (e) => {
+  const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(newPostActions.setImageUrl(e.target.value));
   };
 
   // Handle URL submission
-  const handleUrlSubmit = (e) => {
-    e.preventDefault();
+  const handleUrlSubmit = (
+    e: FormEvent<HTMLFormElement | HTMLButtonElement>
+  ) => {
+    e.preventDefault?.();
     dispatch(newPostActions.setError(null));
 
     // Validate URL
     if (!imageUrl) {
-      dispatch(newPostActions.setError("Please enter an image URL"));
+      dispatch(newPostActions.setError('Please enter an image URL'));
       return;
     }
 
     if (!imageUrl.match(/^https?:\/\/.+\..+/)) {
-      dispatch(newPostActions.setError("Please enter a valid URL"));
+      dispatch(newPostActions.setError('Please enter a valid URL'));
       return;
     }
 
@@ -73,7 +79,7 @@ export default function ImageUpload({ initialImage }) {
     img.onerror = () => {
       dispatch(
         newPostActions.setError(
-          "The URL does not point to a valid image. Please try another URL."
+          'The URL does not point to a valid image. Please try another URL.'
         )
       );
     };
@@ -84,9 +90,9 @@ export default function ImageUpload({ initialImage }) {
   const handleRemoveImage = () => {
     dispatch(newPostActions.setImagePreview(null));
     dispatch(newPostActions.setIsImageUrl(false));
-    dispatch(newPostActions.setImageUrl(""));
+    dispatch(newPostActions.setImageUrl(''));
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
@@ -105,7 +111,7 @@ export default function ImageUpload({ initialImage }) {
               alt="Preview"
               className="w-full h-full object-contain"
               onError={() => {
-                dispatch(newPostActions.setError("Error loading image"));
+                dispatch(newPostActions.setError('Error loading image'));
                 dispatch(newPostActions.setImagePreview(null));
               }}
               onLoad={() => {
@@ -172,7 +178,7 @@ export default function ImageUpload({ initialImage }) {
             className="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
           />
           <button
-            type="button"
+            type="submit"
             onClick={handleUrlSubmit}
             className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-r-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
           >
