@@ -1,7 +1,8 @@
-import WelcomeNav from '../components/welcomPageComponents/WelcomeNav.tsx';
-import Feature from '../components/welcomPageComponents/Feature.tsx';
-import Hero from '../components/welcomPageComponents/Hero.tsx';
-import CTA from '../components/welcomPageComponents/CTA.tsx';
+import WelcomeNav from "../components/welcomPageComponents/WelcomeNav.tsx";
+import FeatureCard from "../components/welcomPageComponents/FeatureCard.tsx";
+import Hero from "../components/welcomPageComponents/Hero.tsx";
+import CTA from "../components/welcomPageComponents/CTA.tsx";
+import { FEATURES_DATA } from "../assets/FEATURES_DATA";
 
 export default function Welcome() {
   return (
@@ -16,26 +17,14 @@ export default function Welcome() {
 
           {/* Features Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20">
-            <Feature
-              title="Create Your Profile"
-              description="Customize your profile with a unique username and profile picture."
-              icon="👤"
-            />
-            <Feature
-              title="Write Your Story"
-              description="Craft your blog posts with our user-friendly editor."
-              icon="✍️"
-            />
-            <Feature
-              title="Manage Your Content"
-              description="Organize and edit your posts with our powerful dashboard."
-              icon="📊"
-            />
-            <Feature
-              title="Secure Access"
-              description="Protected routes and secure authentication for your content."
-              icon="🔒"
-            />
+            {FEATURES_DATA.map((feature, key) => (
+              <FeatureCard
+                key={key}
+                title={feature.title}
+                description={feature.description}
+                icon={feature.icon}
+              />
+            ))}
           </div>
 
           {/* CTA Section */}

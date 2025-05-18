@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { NAV_LINK_DATA } from "../../assets/LINK_DATA";
 
 export default function WelcomeNav() {
   return (
@@ -11,18 +12,11 @@ export default function WelcomeNav() {
             </span>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <Link
-              to="/auth?mode=login"
-              className="text-gray-300 hover:text-white px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              Login
-            </Link>
-            <Link
-              to="/auth?mode=signup"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 sm:px-4 py-2 rounded-md text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              Sign Up
-            </Link>
+            {NAV_LINK_DATA.map((link, key) => (
+              <Link key={key} to={link.to} className={link.className}>
+                {link.title}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

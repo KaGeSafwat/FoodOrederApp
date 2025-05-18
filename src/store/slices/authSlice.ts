@@ -1,6 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+type AuthState = {
+  isLoading: boolean;
+  error: string;
+};
+const initialState: AuthState = {
   isLoading: false,
   error: "",
 };
@@ -9,10 +13,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setIsLoading(state, action) {
+    setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
-    setError(state, action) {
+    setError(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
     clearError(state) {

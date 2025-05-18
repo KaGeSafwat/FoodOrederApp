@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   isDarkMode: false,
@@ -9,10 +9,10 @@ const rightNavSlice = createSlice({
   name: "rightNav",
   initialState,
   reducers: {
-    setIsDarkMode: (state, action) => {
+    setIsDarkMode: (state, action: PayloadAction<boolean>) => {
       state.isDarkMode = action.payload;
     },
-    setIsUserMenuOpen: (state, action) => {
+    setIsUserMenuOpen: (state, action: PayloadAction<boolean>) => {
       state.isUserMenuOpen = action.payload;
     },
   },

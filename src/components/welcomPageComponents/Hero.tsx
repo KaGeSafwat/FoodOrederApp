@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import LandingDiagram from "../../UI/LandingDiagram";
+import { HERO_LINK_DATA } from "../../assets/LINK_DATA";
 
 export default function Hero() {
   return (
@@ -13,18 +14,11 @@ export default function Hero() {
           content with a beautiful dashboard experience.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          <Link
-            to="/auth?mode=signup"
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
-          >
-            Start Writing Now
-          </Link>
-          <Link
-            to="/auth?mode=login"
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-gray-800 text-gray-300 font-medium rounded-lg hover:bg-gray-700 transition-colors text-center"
-          >
-            Access Dashboard
-          </Link>
+          {HERO_LINK_DATA.map((link, key) => (
+            <Link key={key} to={link.to} className={link.className}>
+              {link.title}
+            </Link>
+          ))}
         </div>
       </div>
       <LandingDiagram />

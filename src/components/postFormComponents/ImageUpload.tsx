@@ -1,6 +1,6 @@
-import { type FormEvent, type ChangeEvent, useRef, useEffect } from 'react';
-import { newPostActions } from '../../store/slices/newPostSlice.ts';
-import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
+import { type FormEvent, type ChangeEvent, useRef, useEffect } from "react";
+import { newPostActions } from "../../store/slices/newPostSlice.ts";
+import { useAppDispatch, useAppSelector } from "../../store/hooks.ts";
 
 export default function ImageUpload({
   initialImage,
@@ -18,7 +18,7 @@ export default function ImageUpload({
     if (initialImage) {
       dispatch(newPostActions.setImagePreview(initialImage));
 
-      if (initialImage.startsWith('http')) {
+      if (initialImage.startsWith("http")) {
         dispatch(newPostActions.setIsImageUrl(true));
         dispatch(newPostActions.setImageUrl(initialImage));
       }
@@ -32,16 +32,18 @@ export default function ImageUpload({
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
-      dispatch(newPostActions.setError('Please select an image file'));
+    if (!file.type.startsWith("image/")) {
+      dispatch(newPostActions.setError("Please select an image file"));
       return;
     }
 
     // Read and set image
     const reader = new FileReader();
     reader.onload = () => {
-      dispatch(newPostActions.setImagePreview(reader.result));
-      dispatch(newPostActions.setIsImageUrl(false));
+      if (typeof reader.result === "string") {
+        dispatch(newPostActions.setImagePreview(reader.result));
+        dispatch(newPostActions.setIsImageUrl(false));
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -60,12 +62,12 @@ export default function ImageUpload({
 
     // Validate URL
     if (!imageUrl) {
-      dispatch(newPostActions.setError('Please enter an image URL'));
+      dispatch(newPostActions.setError("Please enter an image URL"));
       return;
     }
 
     if (!imageUrl.match(/^https?:\/\/.+\..+/)) {
-      dispatch(newPostActions.setError('Please enter a valid URL'));
+      dispatch(newPostActions.setError("Please enter a valid URL"));
       return;
     }
 
@@ -79,7 +81,7 @@ export default function ImageUpload({
     img.onerror = () => {
       dispatch(
         newPostActions.setError(
-          'The URL does not point to a valid image. Please try another URL.'
+          "The URL does not point to a valid image. Please try another URL."
         )
       );
     };
@@ -90,9 +92,9 @@ export default function ImageUpload({
   const handleRemoveImage = () => {
     dispatch(newPostActions.setImagePreview(null));
     dispatch(newPostActions.setIsImageUrl(false));
-    dispatch(newPostActions.setImageUrl(''));
+    dispatch(newPostActions.setImageUrl(""));
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -111,7 +113,7 @@ export default function ImageUpload({
               alt="Preview"
               className="w-full h-full object-contain"
               onError={() => {
-                dispatch(newPostActions.setError('Error loading image'));
+                dispatch(newPostActions.setError("Error loading image"));
                 dispatch(newPostActions.setImagePreview(null));
               }}
               onLoad={() => {

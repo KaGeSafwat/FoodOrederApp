@@ -1,9 +1,9 @@
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient();
 
 // Firebase database URL
-const FIREBASE_DB_URL = 'https://dashboard-ea48b-default-rtdb.firebaseio.com';
+const FIREBASE_DB_URL = "https://dashboard-ea48b-default-rtdb.firebaseio.com";
 
 // Define TypeScript interfaces
 export interface Post {
@@ -36,28 +36,27 @@ export interface PostsData {
 
 export interface GetPostsParams {
   signal?: AbortSignal;
-  searchTerm?: string;
   page?: number;
   limit?: number;
 }
 
 // Custom error class with additional properties
 export class AppError extends Error {
-  info?: Record<string, unknown>;
   status?: number;
 
   constructor(message: string) {
     super(message);
-    this.name = 'AppError';
+    this.name = "AppError";
   }
 }
 
+// Create new post and return the created post with ID
 export async function createPost(postData: PostInput): Promise<Post> {
   const response = await fetch(`${FIREBASE_DB_URL}/posts.json`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(postData),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
@@ -65,7 +64,6 @@ export async function createPost(postData: PostInput): Promise<Post> {
     const error = new AppError(
       `Failed to create post: ${response.status} ${response.statusText}`
     );
-    error.info = await response.json().catch(() => ({}));
     error.status = response.status;
     throw error;
   }
@@ -75,54 +73,33 @@ export async function createPost(postData: PostInput): Promise<Post> {
   return { id: data.name, ...postData };
 }
 
+// Get Posts
 export async function getPosts({
   signal,
-  searchTerm,
   page = 1,
   limit = 4,
 }: GetPostsParams = {}): Promise<PostsData> {
-  let url = `${FIREBASE_DB_URL}/posts.json`;
-  if (searchTerm) {
-    url += `?orderBy="title"&startAt="${searchTerm}"&endAt="${searchTerm}\uf8ff"`;
-  }
-
-  const response = await fetch(url, { signal });
+  const response = await fetch(`${FIREBASE_DB_URL}/posts.json`, { signal });
   if (!response.ok) {
     const error = new AppError(
       `Failed to fetch posts: ${response.status} ${response.statusText}`
     );
-    error.info = await response.json().catch(() => ({}));
     error.status = response.status;
     throw error;
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as unknown;
 
   // Firebase returns null if there are no posts
   if (!data) {
     return { posts: [], totalPosts: 0, totalPages: 0, currentPage: page };
   }
 
-  // Convert Firebase object to array
-  const postsArray =
-    typeof data === 'object' && data !== null
-      ? Object.keys(data).map((key) => ({ id: key, ...data[key] }))
-      : [];
-
-  // Sort posts by createdAt date (newest first)
-  postsArray.sort(
-    (a, b) =>
-      new Date(b.createdAt || 0).getTime() -
-      new Date(a.createdAt || 0).getTime()
+  const { totalPages, totalPosts, paginatedPosts } = handlePagination(
+    data,
+    limit,
+    page
   );
-
-  // Calculate pagination values
-  const totalPosts = postsArray.length;
-  const totalPages = Math.ceil(totalPosts / limit);
-
-  // Apply pagination
-  const startIndex = (page - 1) * limit;
-  const paginatedPosts = postsArray.slice(startIndex, startIndex + limit);
 
   return {
     posts: paginatedPosts,
@@ -150,9 +127,9 @@ export const getPostById = async (id: string): Promise<Post | null> => {
 export const updatePost = async (postData: PostUpdateInput): Promise<Post> => {
   const { id, ...data } = postData;
   const response = await fetch(`${FIREBASE_DB_URL}/posts/${id}.json`, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
@@ -173,7 +150,7 @@ export const deletePost = async (
   id: string
 ): Promise<{ success: boolean; id: string }> => {
   const response = await fetch(`${FIREBASE_DB_URL}/posts/${id}.json`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 
   if (!response.ok) {
@@ -186,3 +163,33 @@ export const deletePost = async (
 
   return { success: true, id };
 };
+
+// Get paigatedPosts, Number of posts & pages
+function handlePagination(
+  data: Record<string, any>,
+  limit: number,
+  page: number
+): { totalPosts: number; totalPages: number; paginatedPosts: Post[] } {
+  // Convert Firebase object to array
+  const postsArray =
+    typeof data === "object" && data !== null
+      ? Object.keys(data).map((key) => ({ id: key, ...data[key] }))
+      : [];
+
+  // Sort posts by createdAt date (newest first)
+  postsArray.sort(
+    (a, b) =>
+      new Date(b.createdAt || 0).getTime() -
+      new Date(a.createdAt || 0).getTime()
+  );
+
+  // Calculate pagination values
+  const totalPosts = postsArray.length;
+  const totalPages = Math.ceil(totalPosts / limit);
+
+  // Apply pagination
+  const startIndex = (page - 1) * limit;
+  const paginatedPosts = postsArray.slice(startIndex, startIndex + limit);
+
+  return { totalPosts, totalPages, paginatedPosts };
+}

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { CTA_LINK_DATA } from "../../assets/LINK_DATA";
 
 export default function CTA() {
   return (
@@ -11,18 +12,11 @@ export default function CTA() {
           Join our community of writers and share your stories with the world.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-          <Link
-            to="/auth?mode=signup"
-            className="px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
-          >
-            Create Account
-          </Link>
-          <Link
-            to="/auth?mode=login"
-            className="px-6 sm:px-8 py-3 bg-gray-700 text-gray-300 font-medium rounded-lg hover:bg-gray-600 transition-colors"
-          >
-            Login
-          </Link>
+          {CTA_LINK_DATA.map((link, key) => (
+            <Link key={key} to={link.to} className={link.className}>
+              {link.title}
+            </Link>
+          ))}
         </div>
       </div>
     </div>

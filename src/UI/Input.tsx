@@ -1,26 +1,25 @@
-import type { ComponentPropsWithoutRef, ReactElement } from 'react';
+import type { ComponentPropsWithoutRef } from "react";
 
-type InputProps = ComponentPropsWithoutRef<'input'> &
-  ComponentPropsWithoutRef<'textarea'> & {
-    isLabel?: boolean;
-    isTextArea?: boolean;
-  };
+type InputProps = ComponentPropsWithoutRef<"input"> & {
+  islabel?: string;
+  istextarea: "false";
+};
+type TextareaProps = ComponentPropsWithoutRef<"textarea"> & {
+  islabel?: string;
+  istextarea: "true";
+};
 
-export default function Input({
-  placeholder,
-  id,
-  isLabel,
-  isTextArea,
-  ...Props
-}: InputProps): ReactElement {
+export default function Input(Props: InputProps | TextareaProps) {
+  const { id, placeholder, islabel, istextarea } = Props;
   let cssClass: string =
-    'bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150';
-  if (isLabel) {
+    "bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
+  if (islabel === "true") {
     cssClass = Props.className || cssClass;
   }
+
   return (
     <>
-      {isLabel && (
+      {islabel === "true" && (
         <label
           htmlFor={id}
           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
@@ -29,7 +28,7 @@ export default function Input({
         </label>
       )}
 
-      {isTextArea && (
+      {istextarea === "true" && (
         <textarea
           id={id}
           {...Props}
@@ -38,7 +37,8 @@ export default function Input({
           className={cssClass}
         />
       )}
-      {!isTextArea && (
+
+      {istextarea === "false" && (
         <input
           id={id}
           {...Props}

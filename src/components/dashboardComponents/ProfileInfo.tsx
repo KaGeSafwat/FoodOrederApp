@@ -3,17 +3,18 @@ import {
   HiOutlineLocationMarker,
   HiOutlineUser,
   HiOutlineBriefcase,
-} from 'react-icons/hi';
+} from "react-icons/hi";
+
+import { getAuthUser, type UserDate } from "../../utils/auth";
 
 export default function ProfileInfo() {
-  const userStr = localStorage.getItem('user');
-  const user = userStr ? JSON.parse(userStr) : null;
+  const user: UserDate = getAuthUser();
 
-  const username = user.email.split('@')[0];
+  const username = user.email?.split("@")[0];
   return (
-    <section className="mb-12">
+    <section className="mb-12" role="region" aria-label="Profile Information">
       <h2 className="text-2xl font-semibold mb-4 text-blue-900 dark:text-white flex items-center gap-2">
-        <HiOutlineUser className="inline-block text-blue-900 dark:text-blue-400" />{' '}
+        <HiOutlineUser className="inline-block text-blue-900 dark:text-blue-400" />{" "}
         Profile Info
       </h2>
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col sm:flex-row items-center gap-8 border border-gray-200 dark:border-gray-700 transition-all">

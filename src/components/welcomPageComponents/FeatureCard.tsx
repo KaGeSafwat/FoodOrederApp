@@ -1,12 +1,10 @@
-export default function Feature({
-  title,
-  description,
-  icon,
-}: {
+export type Feature = {
   title: string;
   description: string;
   icon: string;
-}) {
+};
+
+export default function FeatureCard({ title, description, icon }: Feature) {
   return (
     <div className="bg-gray-800/50 backdrop-blur-sm p-6 sm:p-8 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-colors">
       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6">

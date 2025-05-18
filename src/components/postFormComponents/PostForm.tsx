@@ -1,48 +1,31 @@
-import { useNavigate } from 'react-router-dom';
-import { newPostActions } from '../../store/slices/newPostSlice.ts';
-import ImageUpload from './ImageUpload';
-import Input from '../../UI/Input';
-import { useEffect, type FormEvent } from 'react';
-import { useAppDispatch } from '../../store/hooks.ts';
+import ImageUpload from "./ImageUpload";
+import Input from "../../UI/Input";
+import { type FormEvent } from "react";
+type PostFormProps = {
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  handleCancel: () => void;
+  post?: { title?: string; content?: string; image?: string };
+  isSubmitting?: boolean;
+};
 
 export default function PostForm({
   handleSubmit,
+  handleCancel,
   post = {},
   isSubmitting = false,
-}: {
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  post?: { title?: string; content?: string; image?: string };
-  isSubmitting?: boolean;
-}) {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    // Clear image preview when component unmounts
-    return () => {
-      dispatch(newPostActions.setImagePreview(null));
-      dispatch(newPostActions.setIsImageUrl(false));
-      dispatch(newPostActions.setImageUrl(''));
-    };
-  }, [dispatch]);
-
-  const handleCancel = () => {
-    navigate('/dashboard/posts');
-  };
-
+}: PostFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Title Input */}
       <div>
         <Input
-          isTextArea={false}
-          isLabel
+          istextarea="true"
+          islabel="true"
           id="title"
           placeholder="Enter post title"
-          type="text"
           name="title"
           required
-          defaultValue={post.title || ''}
+          defaultValue={post.title || ""}
           className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
         />
       </div>
@@ -50,13 +33,13 @@ export default function PostForm({
       {/* Content Textarea */}
       <div>
         <Input
-          isLabel
+          islabel="true"
           id="content"
-          isTextArea
+          istextarea="true"
           name="content"
           required
           rows={6}
-          defaultValue={post.content || ''}
+          defaultValue={post.content || ""}
           placeholder="Write your post content here..."
           className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors resize-none"
         />
@@ -80,10 +63,10 @@ export default function PostForm({
           className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting
-            ? 'Saving...'
+            ? "Saving..."
             : post.title
-            ? 'Update Post'
-            : 'Create Post'}
+            ? "Update Post"
+            : "Create Post"}
         </button>
       </div>
     </form>

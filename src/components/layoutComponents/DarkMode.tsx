@@ -1,6 +1,6 @@
-import { rightNavActions } from '../../store/slices/rightNavSlice.js';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
+import { rightNavActions } from "../../store/slices/rightNavSlice.js";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks.ts";
 
 export default function DarkMode() {
   const dispatch = useAppDispatch();
@@ -8,11 +8,11 @@ export default function DarkMode() {
 
   // Optimized useEffect for dark mode
   useEffect(() => {
-    const savedMode = localStorage.getItem('mode');
-    const isDark = savedMode === 'dark';
+    const savedMode = localStorage.getItem("mode");
+    const isDark = savedMode === "dark";
 
     dispatch(rightNavActions.setIsDarkMode(isDark));
-    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, [dispatch]);
 
   // Optimized toggleDarkMode function
@@ -20,15 +20,17 @@ export default function DarkMode() {
     const newDarkMode = !isDarkMode;
     dispatch(rightNavActions.setIsDarkMode(newDarkMode));
 
-    document.documentElement.classList.toggle('dark', newDarkMode);
-    localStorage.setItem('mode', newDarkMode ? 'dark' : 'light');
+    document.documentElement.classList.toggle("dark", newDarkMode);
+    localStorage.setItem("mode", newDarkMode ? "dark" : "light");
   };
   return (
     <button
       onClick={toggleDarkMode}
       className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
     >
-      {isDarkMode ? '🌞' : '🌙'}
+      <span data-testid={isDarkMode ? "sun-icon" : "moon-icon"}>
+        {isDarkMode ? "🌞" : "🌙"}
+      </span>
     </button>
   );
 }

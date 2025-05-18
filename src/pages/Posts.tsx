@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { getPosts } from '../utils/fetch.ts';
-import Pagination from '../components/postsComponents/Pagination.tsx';
-import NoPosts from '../components/postsComponents/NoPosts.tsx';
-import Loading from '../components/Loading.tsx';
-import Post from '../components/postsComponents/Post.tsx';
-import Header from '../components/postsComponents/Header.tsx';
+import { useQuery } from "@tanstack/react-query";
+import { useCallback, useState } from "react";
+import { getPosts } from "../utils/fetch.ts";
+import Pagination from "../components/postsComponents/Pagination.tsx";
+import NoPosts from "../components/postsComponents/NoPosts.tsx";
+import Loading from "../UI/Loading.tsx";
+import Post from "../components/postsComponents/Post.tsx";
+import Header from "../components/postsComponents/Header.tsx";
 
 export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +22,7 @@ export default function Posts() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['posts', currentPage],
+    queryKey: ["posts", currentPage],
     queryFn: () => getPosts({ page: currentPage, limit: 4 }),
     staleTime: 60000, // 1 minute
     retry: 2,
@@ -35,6 +35,72 @@ export default function Posts() {
     window.scrollTo(0, 0); // Scroll to top when changing pages
   };
 
+  const renderLoading = useCallback(() => {
+    if (isLoading) {
+      return (
+        <div className="py-12">
+          <Loading size="large" text="Loading Posts..." />
+        </div>
+      );
+    }
+  }, [isLoading]);
+
+  const renderError = useCallback(() => {
+    if (error) {
+      return (
+        <div className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-lg mb-4">
+          <p className="font-medium">Error:</p>
+          <p>{error.message}</p>
+          <button
+            onClick={() => refetch}
+            className="mt-2 text-red-700 dark:text-red-400 underline hover:no-underline"
+          >
+            Try again
+          </button>
+        </div>
+      );
+    }
+  }, [error]);
+
+  const renderPosts = useCallback(() => {
+    if (!isLoading && !error) {
+      return (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {postsData?.posts && postsData.posts.length > 0 ? (
+              postsData.posts.map((post) => <Post post={post} key={post.id} />)
+            ) : (
+              <div className="col-span-2">
+                <NoPosts />
+              </div>
+            )}
+          </div>
+
+          {/* Post count and pagination */}
+          <div className="flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 sm:mb-0">
+              Showing{" "}
+              <span className="font-medium">
+                {postsData.posts?.length || 0}
+              </span>{" "}
+              of{" "}
+              <span className="font-medium">{postsData.totalPosts || 0}</span>{" "}
+              posts
+            </p>
+
+            {postsData?.totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={postsData.totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </div>
+        </>
+      );
+    }
+  }, [isLoading, error, postsData]);
+
   return (
     <>
       {/* Header */}
@@ -42,61 +108,11 @@ export default function Posts() {
 
       {/* Posts content */}
       <section className="bg-gray-50 dark:bg-gray-900/20 p-6 rounded-xl shadow-sm">
-        {isLoading && (
-          <div className="py-12">
-            <Loading size="large" text="Loading Posts..." />
-          </div>
-        )}
+        {renderLoading()}
 
-        {error && (
-          <div className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-lg mb-4">
-            <p className="font-medium">Error:</p>
-            <p>{error.message}</p>
-            <button
-              onClick={() => refetch}
-              className="mt-2 text-red-700 dark:text-red-400 underline hover:no-underline"
-            >
-              Try again
-            </button>
-          </div>
-        )}
+        {renderError()}
 
-        {!isLoading && !error && (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              {postsData?.posts && postsData.posts.length > 0 ? (
-                postsData.posts.map((post) => (
-                  <Post post={post} key={post.id} />
-                ))
-              ) : (
-                <div className="col-span-2">
-                  <NoPosts />
-                </div>
-              )}
-            </div>
-
-            {/* Post count and pagination */}
-            <div className="flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-4">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 sm:mb-0">
-                Showing{' '}
-                <span className="font-medium">
-                  {postsData.posts?.length || 0}
-                </span>{' '}
-                of{' '}
-                <span className="font-medium">{postsData.totalPosts || 0}</span>{' '}
-                posts
-              </p>
-
-              {postsData?.totalPages > 1 && (
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={postsData.totalPages}
-                  onPageChange={handlePageChange}
-                />
-              )}
-            </div>
-          </>
-        )}
+        {renderPosts()}
       </section>
     </>
   );

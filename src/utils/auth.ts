@@ -1,9 +1,9 @@
-import { redirect } from 'react-router-dom';
+import { redirect } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from 'firebase/auth';
-import { auth } from '../firebase.ts';
+} from "firebase/auth";
+import { auth } from "../firebase.ts";
 
 // Sign up function using Firebase
 export const signUp = async (email: string, password: string) => {
@@ -37,16 +37,20 @@ export const signIn = async (email: string, password: string) => {
     }
   }
 };
+export type UserDate = {
+  email: string;
+  uid: string;
+};
 
 export function getAuthUser() {
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
   if (!user) {
     return null;
   }
 
   const expiration = getTokenDuration();
   if (expiration < 0) {
-    return 'expired';
+    return "expired";
   }
 
   return JSON.parse(user);
@@ -56,14 +60,14 @@ export function isAuthenticated() {
   const user = getAuthUser();
 
   if (!user) {
-    return redirect('/auth?mode=login');
+    return redirect("/auth?mode=login");
   }
 
   return null;
 }
 
 export function getTokenDuration() {
-  const storedExpirationDate = localStorage.getItem('expiration');
+  const storedExpirationDate = localStorage.getItem("expiration");
   const expirationDate = storedExpirationDate
     ? new Date(storedExpirationDate)
     : new Date();
@@ -73,7 +77,7 @@ export function getTokenDuration() {
 }
 
 export function logout() {
-  localStorage.removeItem('user');
-  localStorage.removeItem('expiration');
-  return redirect('/home');
+  localStorage.removeItem("user");
+  localStorage.removeItem("expiration");
+  return redirect("/home");
 }

@@ -2,23 +2,26 @@ import {
   HiOutlinePhotograph,
   HiOutlinePencilAlt,
   HiOutlineDocumentAdd,
-} from 'react-icons/hi';
-import { useNavigate } from 'react-router-dom';
+} from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 export default function NoPosts() {
   const navigate = useNavigate();
   const handleCreatePost = () => {
-    navigate('/dashboard/new-post');
+    navigate("/dashboard/new-post");
   };
   const handleGoToDashboard = () => {
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   return (
-    <div className="col-span-3 text-center py-12">
+    <div className="col-span-3 text-center py-12" role="region">
       <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-2xl p-8 border border-gray-200 dark:border-gray-700">
         <div className="flex flex-col items-center">
-          <div className="text-blue-500 dark:text-blue-400 mb-6 bg-blue-100 dark:bg-blue-900/30 p-5 rounded-full">
+          <div
+            data-testid="no-posts-icon"
+            className="text-blue-500 dark:text-blue-400 mb-6 bg-blue-100 dark:bg-blue-900/30 p-5 rounded-full"
+          >
             <HiOutlinePhotograph className="h-20 w-20" />
           </div>
 
