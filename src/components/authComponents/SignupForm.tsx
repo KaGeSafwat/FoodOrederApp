@@ -22,10 +22,10 @@ export const SignupForm = ({
   return (
     <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-200">Create an account</h2>
+        <h1 className="text-2xl font-bold text-gray-200">Create an account</h1>
         <Link
           to="/home"
-          className="text-gray-400 hover:text-white transition-colors duration-200"
+          className="text-gray-400 hover:text-white transition-colors duration-200 underline"
         >
           ← Back to Home
         </Link>

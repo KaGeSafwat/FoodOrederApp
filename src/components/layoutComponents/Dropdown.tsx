@@ -4,7 +4,7 @@ import { auth } from "../../firebase.js";
 import { useDispatch } from "react-redux";
 import { rightNavActions } from "../../store/slices/rightNavSlice.js";
 import { useNavigate } from "react-router-dom";
-import { DROPDOWN_LINK_DATA } from "../../assets/LINK_DATA";
+import { DROPDOWN_LINK_DATA } from "../../assets/LINK_DATA.js";
 
 const cssClass =
   "flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700";

@@ -24,7 +24,7 @@ export default function UserMenu() {
         <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
           {user?.email?.charAt(0).toUpperCase() || "G"}
         </div>
-        <span className="text-sm font-medium">{username}</span>
+        <span className="text-sm font-medium hidden sm:block">{username}</span>
       </button>
 
       {/* Dropdown menu */}

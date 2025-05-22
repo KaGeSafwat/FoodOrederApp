@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Loading from "../UI/Loading.tsx";
 import PostForm from "../components/postFormComponents/PostForm.tsx";
 import { getPostById } from "../utils/fetch.ts";
-import { usePostForm } from "../hooks/usePostForm";
+import { usePostForm } from "../hooks/usePostForm.tsx";
 
 export default function EditPost() {
   const { postId } = useParams();

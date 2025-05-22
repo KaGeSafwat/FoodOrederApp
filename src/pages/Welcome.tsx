@@ -2,7 +2,7 @@ import WelcomeNav from "../components/welcomPageComponents/WelcomeNav.tsx";
 import FeatureCard from "../components/welcomPageComponents/FeatureCard.tsx";
 import Hero from "../components/welcomPageComponents/Hero.tsx";
 import CTA from "../components/welcomPageComponents/CTA.tsx";
-import { FEATURES_DATA } from "../assets/FEATURES_DATA";
+import { FEATURES_DATA } from "../assets/FEATURES_DATA.ts";
 
 export default function Welcome() {
   return (
@@ -10,8 +10,8 @@ export default function Welcome() {
       {/* Navigation Bar */}
       <WelcomeNav />
       {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
-        <div className="max-w-6xl mx-auto">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
+        <section className="max-w-6xl mx-auto">
           {/* Hero Section */}
           <Hero />
 
@@ -29,8 +29,8 @@ export default function Welcome() {
 
           {/* CTA Section */}
           <CTA />
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }

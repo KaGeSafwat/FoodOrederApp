@@ -11,13 +11,15 @@ export default function CTA() {
         <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6">
           Join our community of writers and share your stories with the world.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+        <ul className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           {CTA_LINK_DATA.map((link, key) => (
-            <Link key={key} to={link.to} className={link.className}>
-              {link.title}
-            </Link>
+            <li key={key}>
+              <Link to={link.to} className={link.className}>
+                {link.title}
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

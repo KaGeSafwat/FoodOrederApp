@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import LeftNav from "../components/layoutComponents/LeftNav";
-import RightNav from "../components/layoutComponents/RightNav";
+import LeftNav from "../components/layoutComponents/LeftNav.tsx";
+import RightNav from "../components/layoutComponents/RightNav.tsx";
 import { useEffect } from "react";
-import { getTokenDuration } from "../utils/auth";
+import { getTokenDuration } from "../utils/auth.ts";
 import { useAppSelector } from "../store/hooks.ts";
 
 export default function DashBoardLayout() {

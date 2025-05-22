@@ -14,29 +14,29 @@ export const FormContent = ({
       {!isLogin && (
         <Input
           istextarea="false"
-          islabel="false"
-          id="username"
+          islabel="true"
+          id="User Name"
           name="username"
-          placeholder="Username"
+          placeholder="AbdElrahman Safwat"
           type="text"
           required
         />
       )}
       <Input
         istextarea="false"
-        islabel="false"
-        id="email"
+        islabel="true"
+        id="Email Address"
         name="email"
-        placeholder="Email address"
+        placeholder="example@gmail.com"
         type="email"
         required
       />
       <Input
         istextarea="false"
-        islabel="false"
-        id="password"
+        islabel="true"
+        id="Password"
         name="password"
-        placeholder="Password"
+        placeholder="************"
         type="password"
         required
         minLength={6}
@@ -46,7 +46,7 @@ export const FormContent = ({
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <Link
             to={isLogin ? "/auth?mode=signup" : "/auth?mode=login"}
-            className="text-sm text-blue-500 hover:underline mt-4"
+            className="text-sm text-blue-300 underline mt-4"
           >
             {isLogin ? "Signup" : "Login"}
           </Link>
