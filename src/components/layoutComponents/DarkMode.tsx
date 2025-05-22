@@ -1,4 +1,4 @@
-import { rightNavActions } from "../../store/slices/rightNavSlice.js";
+import { rightNavActions } from "../../store/slices/rightNavSlice.ts";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks.ts";
 

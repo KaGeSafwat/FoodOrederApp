@@ -1,4 +1,4 @@
-import { rightNavActions } from "../../store/slices/rightNavSlice.js";
+import { rightNavActions } from "../../store/slices/rightNavSlice.ts";
 import Dropdown from "./Dropdown.js";
 import { useAppDispatch, useAppSelector } from "../../store/hooks.ts";
 import { getAuthUser, type UserDate } from "../../utils/auth.ts";
