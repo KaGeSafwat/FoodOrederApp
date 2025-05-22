@@ -13,14 +13,14 @@ export default function ProfileInfo() {
   const username = user.email?.split("@")[0];
   return (
     <section className="mb-12" role="region" aria-label="Profile Information">
-      <h2 className="text-2xl font-semibold mb-4 text-blue-900 dark:text-white flex items-center gap-2">
+      <h1 className="text-2xl font-semibold mb-4 text-blue-900 dark:text-white flex items-center gap-2">
         <HiOutlineUser className="inline-block text-blue-900 dark:text-blue-400" />{" "}
         Profile Info
-      </h2>
+      </h1>
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col sm:flex-row items-center gap-8 border border-gray-200 dark:border-gray-700 transition-all">
         <img
           src={`https://ui-avatars.com/api/?name=${username}&background=0D8ABC&color=fff&size=128`}
-          alt="profile"
+          alt="profile avatar contain the first two letters of the user name"
           className="w-28 h-28 rounded-full border-4 border-blue-500 dark:border-blue-400 object-cover shadow-lg hover:scale-105 transition-transform duration-200"
         />
         <div className="flex-1 w-full">

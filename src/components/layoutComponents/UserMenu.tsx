@@ -18,10 +18,11 @@ export default function UserMenu() {
   return (
     <div className="relative">
       <button
+        role="button"
         onClick={toggleUserMenu}
-        className="flex items-center space-x-2 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
+        className="flex items-center space-x-2 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 "
       >
-        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+        <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
           {user?.email?.charAt(0).toUpperCase() || "G"}
         </div>
         <span className="text-sm font-medium hidden sm:block">{username}</span>

@@ -16,16 +16,20 @@ export default function Welcome() {
           <Hero />
 
           {/* Features Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20">
             {FEATURES_DATA.map((feature, key) => (
-              <FeatureCard
+              <li
                 key={key}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-              />
+                className="bg-gray-800/50 backdrop-blur-sm p-6 sm:p-8 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-colors"
+              >
+                <FeatureCard
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                />
+              </li>
             ))}
-          </div>
+          </ul>
 
           {/* CTA Section */}
           <CTA />

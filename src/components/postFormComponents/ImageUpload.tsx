@@ -100,46 +100,45 @@ export default function ImageUpload({
 
   return (
     <div className="space-y-4">
-      <label className="block text-gray-700 dark:text-gray-200 font-medium mb-1">
-        Image
-      </label>
-
       {/* Image Preview */}
       {imagePreview && (
-        <div className="mb-4">
-          <div className="relative w-full h-48 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="w-full h-full object-contain"
-              onError={() => {
-                dispatch(newPostActions.setError("Error loading image"));
-                dispatch(newPostActions.setImagePreview(null));
-              }}
-              onLoad={() => {
-                if (error) dispatch(newPostActions.setError(null));
-              }}
-            />
-            <button
-              type="button"
-              onClick={handleRemoveImage}
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+        <>
+          <div className="mb-4">
+            <div className="relative w-full h-48 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="w-full h-full object-contain"
+                onError={() => {
+                  dispatch(newPostActions.setError("Error loading image"));
+                  dispatch(newPostActions.setImagePreview(null));
+                }}
+                onLoad={() => {
+                  if (error) dispatch(newPostActions.setError(null));
+                }}
+              />
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                aria-label="delete image"
+                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* Error Message */}
@@ -147,15 +146,19 @@ export default function ImageUpload({
 
       {/* File Upload */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label
+          htmlFor="file"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-1"
+        >
           Upload from device
         </label>
         <input
+          id="file"
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
           accept="image/*"
-          className="block w-full text-sm text-gray-500 dark:text-gray-400
+          className="block w-full text-sm text-gray-500 dark:text-gray-100
             file:mr-4 file:py-2 file:px-4
             file:rounded-lg file:border-0
             file:text-sm file:font-semibold
@@ -168,21 +171,25 @@ export default function ImageUpload({
 
       {/* URL Input */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label
+          htmlFor="url"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-1"
+        >
           Or add image URL
         </label>
         <div className="flex">
           <input
+            id="url"
             type="text"
             value={imageUrl}
             onChange={handleUrlChange}
             placeholder="https://example.com/image.jpg"
-            className="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
+            className="flex-grow px-4 py-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors dark:placeholder:text-stone-200 placeholder:text-stone-900"
           />
           <button
             type="submit"
             onClick={handleUrlSubmit}
-            className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-r-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+            className="px-4 py-2 bg-blue-600 dark:bg-blue-800 text-white rounded-r-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
           >
             Add
           </button>

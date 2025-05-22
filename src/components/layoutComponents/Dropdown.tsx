@@ -29,7 +29,10 @@ export default function Dropdown({ user }: { user: User | null }) {
   };
   const username = user?.email.split("@")[0];
   return (
-    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+    <div
+      aria-expanded="false"
+      className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5"
+    >
       <div className="py-1">
         <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700">
           <p className="font-medium">{user?.email}</p>

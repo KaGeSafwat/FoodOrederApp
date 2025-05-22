@@ -15,7 +15,7 @@ export default function Hero() {
         </p>
         <ul className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           {HERO_LINK_DATA.map((link, key) => (
-            <li key={key}>
+            <li key={key} className={link.className}>
               <Link to={link.to} className={link.className}>
                 {link.title}
               </Link>

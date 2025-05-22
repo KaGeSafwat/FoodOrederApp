@@ -6,7 +6,7 @@ export type Feature = {
 
 export default function FeatureCard({ title, description, icon }: Feature) {
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm p-6 sm:p-8 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-colors">
+    <>
       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6">
         <span className="text-xl sm:text-2xl">{icon}</span>
       </div>
@@ -14,6 +14,6 @@ export default function FeatureCard({ title, description, icon }: Feature) {
         {title}
       </h2>
       <p className="text-sm sm:text-base text-gray-400">{description}</p>
-    </div>
+    </>
   );
 }

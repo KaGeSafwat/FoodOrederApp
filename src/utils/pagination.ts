@@ -10,7 +10,7 @@ export const getButtonClassName = (
   }
 
   if (isCurrentPage) {
-    return `${baseClasses} text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 border-blue-600 dark:border-blue-500 z-10`;
+    return `${baseClasses} text-white bg-blue-600 dark:bg-blue-800 hover:bg-blue-700 dark:hover:bg-blue-600 border-blue-600 dark:border-blue-500 z-10`;
   }
 
   return `${baseClasses} text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700`;

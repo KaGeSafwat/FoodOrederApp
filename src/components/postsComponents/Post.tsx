@@ -70,9 +70,9 @@ export default function Post({ post }: PostProps) {
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-2 line-clamp-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+        <h2 className="font-bold text-xl text-gray-900 dark:text-white mb-2 line-clamp-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
           {toTitleCase(post.title) || "Untitled Post"}
-        </h3>
+        </h2>
 
         {/* Content preview */}
         <div className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
@@ -81,20 +81,20 @@ export default function Post({ post }: PostProps) {
 
         {/* Actions */}
         <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-end items-center">
-          <div className="flex space-x-2">
+          <div className="flex items-center space-x-2">
             <Link
               to={`/dashboard/posts/${post.id}/edit`}
-              className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-full transition-colors"
-              title="Edit post"
+              className="flex justify-center items-center p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-full transition-colors"
             >
-              <HiOutlinePencil className="w-5 h-5" />
+              <HiOutlinePencil className="w-5 h-5 mr-1" />
+              Edit Post
             </Link>
             <Button
               onClick={handleDelete}
-              className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-full transition-colors"
-              title="Delete post"
+              className="flex justify-center items-center p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-full transition-colors"
             >
-              <HiOutlineTrash className="w-5 h-5" />
+              <HiOutlineTrash className="w-5 h-5 mr-1" />
+              Delete Post
             </Button>
           </div>
         </div>

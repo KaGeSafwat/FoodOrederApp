@@ -21,12 +21,12 @@ export default function PostForm({
         <Input
           istextarea="true"
           islabel="true"
-          id="title"
+          id="Title"
           placeholder="Enter post title"
           name="title"
           required
           defaultValue={post.title || ""}
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
+          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors dark:placeholder:text-slate-100 placeholder:text-slate-900"
         />
       </div>
 
@@ -34,14 +34,14 @@ export default function PostForm({
       <div>
         <Input
           islabel="true"
-          id="content"
+          id="Content"
           istextarea="true"
           name="content"
           required
           rows={6}
           defaultValue={post.content || ""}
           placeholder="Write your post content here..."
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors resize-none"
+          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors resize-none dark:placeholder:text-slate-100 placeholder:text-slate-900"
         />
       </div>
 

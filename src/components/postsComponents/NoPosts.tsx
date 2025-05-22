@@ -25,9 +25,9 @@ export default function NoPosts() {
             <HiOutlinePhotograph className="h-20 w-20" />
           </div>
 
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
             No posts found
-          </h3>
+          </h1>
 
           <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-xs text-center">
             Create your first post to start sharing your content with the world

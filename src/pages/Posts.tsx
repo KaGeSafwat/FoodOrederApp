@@ -49,7 +49,7 @@ export default function Posts() {
     if (error) {
       return (
         <div className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-lg mb-4">
-          <p className="font-medium">Error:</p>
+          <h2 className="font-medium">Error:</h2>
           <p>{error.message}</p>
           <button
             onClick={() => refetch}

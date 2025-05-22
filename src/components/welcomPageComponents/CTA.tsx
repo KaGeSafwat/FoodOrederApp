@@ -13,10 +13,8 @@ export default function CTA() {
         </p>
         <ul className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           {CTA_LINK_DATA.map((link, key) => (
-            <li key={key}>
-              <Link to={link.to} className={link.className}>
-                {link.title}
-              </Link>
+            <li key={key} className={link.className}>
+              <Link to={link.to}>{link.title}</Link>
             </li>
           ))}
         </ul>

@@ -30,9 +30,10 @@ export default function DashBoardLayout() {
 
   return (
     <div className={`flex flex-col min-h-screen ${isDarkMode ? "dark" : ""}`}>
-      {/* Navbar */}
-      <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 w-full z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* header */}
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 w-full z-50">
+        {/* Navbar */}
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Left side navigation */}
             <LeftNav />
@@ -40,8 +41,8 @@ export default function DashBoardLayout() {
             {/* Right side buttons */}
             <RightNav />
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
       {/* Main content */}
       <main className="flex-grow bg-gray-50 dark:bg-gray-900">

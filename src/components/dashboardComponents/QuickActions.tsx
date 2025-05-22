@@ -55,30 +55,31 @@ export default function QuickActions() {
       <h2 className="text-xl font-semibold mb-4 text-blue-900 dark:text-white">
         Quick Actions
       </h2>
-      <div
+      <ul
         data-testid="quick-actions-grid"
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
       >
         {ACTIONS.map((action, key) => (
-          <Link
-            key={key}
-            to={action.to}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all flex items-center"
-          >
-            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full mr-4">
-              {action.icon}
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-900 dark:text-white">
-                {action.title}
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                {action.description}
-              </p>
-            </div>
-          </Link>
+          <li key={key}>
+            <Link
+              to={action.to}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all flex items-center"
+            >
+              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full mr-4">
+                {action.icon}
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900 dark:text-white">
+                  {action.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  {action.description}
+                </p>
+              </div>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
