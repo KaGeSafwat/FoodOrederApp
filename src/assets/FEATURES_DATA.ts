@@ -1,4 +1,4 @@
-import type { Feature } from "../components/welcomPageComponents/FeatureCard";
+import type { Feature } from "../components/welcomPageComponents/FeatureCard/FeatureCard";
 export const FEATURES_DATA: Feature[] = [
   {
     title: "Create Your Profile",

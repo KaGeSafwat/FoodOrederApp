@@ -22,7 +22,7 @@ const Loading = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center  h-screen">
       <div
         data-testid="loading-spinner"
         className={`${spinnerSizes[size]} border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin ${className}`}

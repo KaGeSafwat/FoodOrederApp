@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 import Loading from "../UI/Loading.tsx";
-import PostForm from "../components/postFormComponents/PostForm.tsx";
+import PostForm from "../components/postFormComponents/PostForm/PostForm.tsx";
 import { getPostById } from "../utils/fetch.ts";
 import { usePostForm } from "../hooks/usePostForm.tsx";
 
