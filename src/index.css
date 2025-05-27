@@ -12,6 +12,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body {
+  height: 100vh;
+}
+#root {
+  height: 100vh;
+}
 
 @layer base {
   html,

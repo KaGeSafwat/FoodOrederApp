@@ -4,6 +4,7 @@ import { authActions } from "../store/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import type { AuthFormData } from "../types/auth";
 import { useEffect, useCallback } from "react";
+import { HiOutlineExclamation } from "react-icons/hi";
 
 export const useAuthForm = () => {
   const [searchParams] = useSearchParams();
@@ -55,7 +56,8 @@ export const useAuthForm = () => {
     if (!error) return null;
 
     return (
-      <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded mb-4">
+      <div className="bg-red-500/10 border border-red-500 text-red-300 px-4 py-3 rounded mb-4 flex items-center gap-2">
+        <HiOutlineExclamation className="w-5 h-5" />
         {error}
       </div>
     );

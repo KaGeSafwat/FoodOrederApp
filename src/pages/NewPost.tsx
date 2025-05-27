@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
-import PostForm from "../components/postFormComponents/PostForm.tsx";
-import { usePostForm } from "../hooks/usePostForm";
+import PostForm from "../components/postFormComponents/PostForm/PostForm.tsx";
+import { usePostForm } from "../hooks/usePostForm.tsx";
 
 export default function NewPost() {
   // Use our custom hook for form handling

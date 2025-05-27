@@ -1,9 +1,9 @@
-import ProfileInfo from "../components/dashboardComponents/ProfileInfo";
-import QuickActions from "../components/dashboardComponents/QuickActions";
+import ProfileInfo from "../components/dashboardComponents/ProfileInfo/ProfileInfo";
+import QuickActions from "../components/dashboardComponents/QuickActions/QuickActions";
 
 export default function Dashboard() {
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col justify-around space-y-8">
       {/* Profile Information */}
       <ProfileInfo />
 
